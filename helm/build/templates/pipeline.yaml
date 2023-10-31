@@ -56,6 +56,17 @@ spec:
       workspaces:
         - name: source
           workspace: source-folder
+    - name: openshift-client
+      runAfter:
+        - build-and-push
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+      params:
+        - name: SCRIPT
+          value: kubectl rollout restart deploy kela-wind-turbine-app
+        - name: VERSION
+          value: latest
   workspaces:
     - name: source-folder
     - name: maven-settings
